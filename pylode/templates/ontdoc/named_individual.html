@@ -45,6 +45,14 @@
                 </td>
             </tr>
             {%- endif %}
+            {%- if applies_whole is not none %}
+            <tr>
+                <th>Applies to Whole Maritime Area</th>
+                <td>
+                    {{ applies_whole }}
+                </td>
+            </tr>
+            {%- endif %}
              {%- if see_also is not none %}
             <tr>
                 <th>See Also</th>

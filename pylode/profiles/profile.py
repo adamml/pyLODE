@@ -141,6 +141,6 @@ VOC_PUB_PROFILE = Profile(
 PROFILES = {
     "prof": PROF_PROFILE,
     "ontdoc": ONT_DOC_PROFILE,
-    "vocpub": VOC_PUB_PROFILE,
+    "vocpub": VOC_PUB_PROFILE
     # "modp": MOD_PROFILE
 }

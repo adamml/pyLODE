@@ -846,8 +846,10 @@ class OntDoc(BaseProfile):
             self.NAMED_INDIVIDUALS[ni]["source"] = None
             self.NAMED_INDIVIDUALS[ni]["seeAlso"] = None
             self.NAMED_INDIVIDUALS[ni]["sameAs"] = None
+            self.NAMED_INDIVIDUALS[ni]["appliesToWholeMaritimeArea"] = None
 
             for p, o in self.G.predicate_objects(subject=s):
+                print(str(p))
                 # list all the other classes of this NI
                 if p == RDF.type:
                     if o != OWL.NamedIndividual:
@@ -874,6 +876,9 @@ class OntDoc(BaseProfile):
 
                 if p == OWL.sameAs:
                     self.NAMED_INDIVIDUALS[ni]["sameAs"] = self._make_formatted_uri(o)
+
+                if p == URIRef('http://something/national-marine-planning-framework-policies#appliesToWholeMaritimeArea'):
+                    self.NAMED_INDIVIDUALS[ni]['appliesToWholeMaritimeArea'] = str(o)
 
             # patch title from URI if we haven't got one
             if self.NAMED_INDIVIDUALS[ni].get("title") is None:
@@ -1067,7 +1072,8 @@ class OntDoc(BaseProfile):
             is_defined_by=named_individual[1].get("isDefinedBy"),
             source=named_individual[1].get("source"),
             see_also=named_individual[1].get("seeAlso"),
-            same_as=named_individual[1].get("sameAs")
+            same_as=named_individual[1].get("sameAs"),
+            applies_whole=named_individual[1].get("appliesToWholeMaritimeArea")
         )
 
     def _make_named_individuals(self):
