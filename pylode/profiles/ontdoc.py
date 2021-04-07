@@ -847,6 +847,9 @@ class OntDoc(BaseProfile):
             self.NAMED_INDIVIDUALS[ni]["seeAlso"] = None
             self.NAMED_INDIVIDUALS[ni]["sameAs"] = None
             self.NAMED_INDIVIDUALS[ni]["appliesToWholeMaritimeArea"] = None
+            self.NAMED_INDIVIDUALS[ni]["policyCode"] = None
+            self.NAMED_INDIVIDUALS[ni]["directsOther"] = None
+            self.NAMED_INDIVIDUALS[ni]["directsChapter"] = None
 
             for p, o in self.G.predicate_objects(subject=s):
                 print(str(p))
@@ -879,6 +882,15 @@ class OntDoc(BaseProfile):
 
                 if p == URIRef('http://something/national-marine-planning-framework-policies#appliesToWholeMaritimeArea'):
                     self.NAMED_INDIVIDUALS[ni]['appliesToWholeMaritimeArea'] = str(o)
+
+                if p == URIRef('http://something/national-marine-planning-framework-policies#policyCode'):
+                    self.NAMED_INDIVIDUALS[ni]['policyCode'] = str(o)
+
+                if p == URIRef('http://something/national-marine-planning-framework-policies#directsOtherProposalsInRelationToTopicActivity'):
+                    self.NAMED_INDIVIDUALS[ni]['directsOther'] = str(o)
+
+                if p == URIRef('http://something/national-marine-planning-framework-policies#directsChapterTopicActivityProposals'):
+                    self.NAMED_INDIVIDUALS[ni]['directsChapter'] = str(o)
 
             # patch title from URI if we haven't got one
             if self.NAMED_INDIVIDUALS[ni].get("title") is None:
@@ -1073,7 +1085,10 @@ class OntDoc(BaseProfile):
             source=named_individual[1].get("source"),
             see_also=named_individual[1].get("seeAlso"),
             same_as=named_individual[1].get("sameAs"),
-            applies_whole=named_individual[1].get("appliesToWholeMaritimeArea")
+            applies_whole=named_individual[1].get("appliesToWholeMaritimeArea"),
+            policy_code=named_individual[1].get("policyCode"),
+            directs_other=named_individual[1].get("directsOther"),
+            directs_chapter=named_individual[1].get("directsChapter")
         )
 
     def _make_named_individuals(self):
