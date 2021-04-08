@@ -189,6 +189,7 @@ class OntDoc(BaseProfile):
         #   use the given URI
         uri_base = self._get_namespace_from_uri(uri)
         link = None
+
         if uri_base == self.METADATA.get("default_namespace"):
             if self.PROPERTIES.get(uri):
                 link = "[{}]({})".format(short, self.PROPERTIES[uri]["fid"]) \
@@ -202,6 +203,16 @@ class OntDoc(BaseProfile):
                 link = "[{}]({})".format(short, uri) \
                     if self.outputformat == "md" \
                     else '<a href="{}">{}</a>'.format(uri, short)
+        else:
+            if self.CLASSES.get(uri):
+                print(self.CLASSES[uri]["fid"])
+            elif self.PROPERTIES.get(uri):
+                print(self.PROPERTIES[uri]["fid"])
+            elif self.NAMED_INDIVIDUALS.get('uri'):
+                print(self.NAMED_INDIVIDUALS[uri]["fid"])
+            #print(uri)
+            #print(uri_base)
+            #print(link)
 
         if link is None:
             link = "[{}]({})".format(short, uri) \
@@ -1287,7 +1298,7 @@ class OntDoc(BaseProfile):
                 prop_type = (
                     self.PROPERTIES.get(p).get("prop_type")
                     if self.PROPERTIES.get(p)
-                    else None
+                    else 'ni'
                 )
                 html.append(self._make_formatted_uri(p, type=prop_type))
             self.CLASSES[uri]["has_members"] = html
